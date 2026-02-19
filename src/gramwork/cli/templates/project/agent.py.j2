@@ -1,0 +1,18 @@
+"""Minimal {{ name }} agent."""
+
+from gramwork import GramWork
+
+app = GramWork(config_path="config.toml")
+
+
+@app.on_message(pattern=r"/ping")
+async def ping(ctx):
+    await ctx.reply("pong!")
+
+
+def main():
+    app.run()
+
+
+if __name__ == "__main__":
+    main()
